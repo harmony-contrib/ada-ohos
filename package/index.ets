@@ -1,0 +1,1 @@
+export * from "libada_ohos.so"
