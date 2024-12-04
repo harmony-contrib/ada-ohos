@@ -1,4 +1,4 @@
-use ada_url::{HostType as AHostType, SchemeType as ASchemeType, Url as AUrl};
+use ada_url::{HostType as AHostType, SchemeType as ASchemeType, Url as AUrl, UrlSearchParams as AUrlSearchParams};
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result, Status};
 
@@ -10,6 +10,12 @@ pub struct Ada();
 #[napi]
 pub struct Url {
     inner: AUrl,
+}
+
+/// url search params instance wrapper, can directly get/set search params.
+#[napi]
+pub struct UrlSearchParams {
+    inner: AUrlSearchParams,
 }
 
 /// SchemeType Enum which if copied from ada-url
@@ -70,6 +76,14 @@ impl Ada {
     #[napi]
     pub fn can_parse(url: String, base: Option<String>) -> bool {
         AUrl::can_parse(url.as_ref(), base.as_deref())
+    }
+
+    /// create url search params
+    #[napi]
+    pub fn url_search_params(params: String) -> Result<UrlSearchParams> {
+        let search_params = AUrlSearchParams::parse(params.as_str())
+            .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
+        Ok(UrlSearchParams { inner: search_params })
     }
 }
 
@@ -212,5 +226,90 @@ impl Url {
     #[napi(getter)]
     pub fn host_type(&self) -> HostType {
         self.inner.host_type().into()
+    }
+}
+
+
+#[napi]
+
+impl UrlSearchParams {
+
+    /// get search params by key
+    #[napi]
+    pub fn get(&self, key: String) -> Option<&str> {
+        self.inner.get(key.as_str())
+    }
+
+    /// set search params by key
+    #[napi]
+    pub fn set(&mut self, key: String, value: String) {
+        self.inner.set(key.as_str(), value.as_str());
+    }
+
+    /// append search params by key
+    #[napi]
+    pub fn append(&mut self, key: String, value: String) {
+        self.inner.append(key.as_str(), value.as_str());
+    }
+
+    /// search params has key and value
+    #[napi]
+    pub fn contains(&self, key: String, value: String) -> bool {
+        self.inner.contains(key.as_str(), value.as_str())
+    }
+
+    /// delete search params by key and value
+    #[napi]
+    pub fn remove(&mut self, key: String, value: String) {
+        self.inner.remove(key.as_str(), value.as_str());
+    }
+
+    /// delete all search params by key
+    #[napi]
+    pub fn remove_key(&mut self, key: String) {
+        self.inner.remove_key(key.as_str());
+    }
+
+    /// search params has key
+    #[napi]
+    pub fn contains_key(&self, key: String) -> bool {
+        self.inner.contains_key(key.as_str())
+    }
+
+    /// search params is empty or not
+    #[napi]
+    pub fn is_empty(&self) -> bool {
+        self.inner.is_empty()
+    }
+
+    /// get all search params by key
+    #[napi]
+    pub fn get_all(&self, key: String) -> Vec<&str> {
+        let all: Vec<&str> = self.inner.get_all(key.as_str()).into();
+        all
+    }
+
+    /// get all keys length
+    #[napi]
+    pub fn len(&self) -> u32 {
+        self.inner.len() as u32
+    }
+
+    /// sort search params
+    #[napi]
+    pub fn sort(&mut self) {
+        self.inner.sort();
+    }
+
+    /// get all keys
+    #[napi]
+    pub fn keys(&self) -> Vec<&str> {
+        self.inner.keys().collect()
+    }
+
+    /// get all values
+    #[napi]
+    pub fn values(&self) -> Vec<&str> {
+        self.inner.values().collect()
     }
 }
