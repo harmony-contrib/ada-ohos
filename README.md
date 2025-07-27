@@ -110,6 +110,11 @@ export declare class UrlSearchParams {
   /** get all values */
   values(): Array<string>
 }
+
+export declare class Idna {
+  static toAscii(input: string): string
+  static toUnicode(input: string): string
+}
 ```
 
 ## Performance
