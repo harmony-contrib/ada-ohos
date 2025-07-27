@@ -2,6 +2,9 @@
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
+# Clean the dist directory
+rm -rf $SCRIPT_DIR/dist
+
 release_mode="$1"
 
 if [ "$release_mode" == "release" ]; then
@@ -17,6 +20,7 @@ cargo zigbuild --target aarch64-unknown-linux-ohos $release_mode
 cargo zigbuild --target armv7-unknown-linux-ohos $release_mode
 cargo zigbuild --target x86_64-unknown-linux-ohos $release_mode
 
+# Create the dist directory
 mkdir -p $SCRIPT_DIR/dist/arm64-v8a
 mkdir -p $SCRIPT_DIR/dist/armeabi-v7a
 mkdir -p $SCRIPT_DIR/dist/x86_64
