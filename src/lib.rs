@@ -1,4 +1,7 @@
-use ada_url::{HostType as AHostType, SchemeType as ASchemeType, Url as AUrl, UrlSearchParams as AUrlSearchParams};
+use ada_url::{
+    HostType as AHostType, Idna as AIdna, SchemeType as ASchemeType, Url as AUrl,
+    UrlSearchParams as AUrlSearchParams,
+};
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result, Status};
 
@@ -83,7 +86,9 @@ impl Ada {
     pub fn url_search_params(params: String) -> Result<UrlSearchParams> {
         let search_params = AUrlSearchParams::parse(params.as_str())
             .map_err(|e| Error::new(Status::GenericFailure, e.to_string()))?;
-        Ok(UrlSearchParams { inner: search_params })
+        Ok(UrlSearchParams {
+            inner: search_params,
+        })
     }
 }
 
@@ -229,11 +234,9 @@ impl Url {
     }
 }
 
-
 #[napi]
 
 impl UrlSearchParams {
-
     /// get search params by key
     #[napi]
     pub fn get(&self, key: String) -> Option<&str> {
@@ -311,5 +314,21 @@ impl UrlSearchParams {
     #[napi]
     pub fn values(&self) -> Vec<&str> {
         self.inner.values().collect()
+    }
+}
+
+#[napi]
+pub struct Idna {}
+
+#[napi]
+impl Idna {
+    #[napi]
+    pub fn to_ascii(input: String) -> String {
+        AIdna::ascii(input.as_str())
+    }
+
+    #[napi]
+    pub fn to_unicode(input: String) -> String {
+        AIdna::unicode(input.as_str())
     }
 }

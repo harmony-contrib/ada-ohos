@@ -110,6 +110,11 @@ export declare class UrlSearchParams {
   /** get all values */
   values(): Array<string>
 }
+
+export declare class Idna {
+  static toAscii(input: string): string
+  static toUnicode(input: string): string
+}
 ```
 
 ## Performance
@@ -120,3 +125,20 @@ Based on some informal tests, it's approximately **4x** times faster than the bu
 |--------------|-----|------|-----|------|
 | @ohos-rs/ada | 57  | 352  | 31  | us   |
 | @ohos.url    | 196 | 1405 | 99  | us   |
+
+
+## Build
+
+We recommend you use `cargo zigbuild` to build it. 
+
+The version of ohos's llvm is too old that don't support new C++ syntax, for example: `std::range`, so if you want to build this project you can't use `ada-url@3.1.6` or newer version. We provide an experiential zigbuild for OpenHarmony, you can see more with [doc](https://github.com/ohos-rs/zig-setup).
+
+And if you have already setup the environment with zig, you can run the following command to build it.
+
+```bash
+# debug mode
+bash ./scripts/build.sh
+
+# release mode
+bash ./scripts/build.sh release
+```
