@@ -17,6 +17,10 @@ cargo zigbuild --target aarch64-unknown-linux-ohos $release_mode
 cargo zigbuild --target armv7-unknown-linux-ohos $release_mode
 cargo zigbuild --target x86_64-unknown-linux-ohos $release_mode
 
+mkdir -p $SCRIPT_DIR/dist/arm64-v8a
+mkdir -p $SCRIPT_DIR/dist/armeabi-v7a
+mkdir -p $SCRIPT_DIR/dist/x86_64
+
 target_dir=""
 
 if [ "$release_mode" == "--release" ]; then
