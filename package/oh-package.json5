@@ -7,4 +7,7 @@
   version: "0.0.4",
   types: "libs/index.d.ts",
   dependencies: {},
+  keywords: ["ada-url", "harmony", "openharmony", "rust"],
+  repository: "https://github.com/harmony-contrib/ada-ohos.git",
+  homepage: "https://github.com/harmony-contrib/ada-ohos"
 }
