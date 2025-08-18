@@ -1,13 +1,13 @@
 {
-  license: "MIT",
-  author: "richerfu",
-  name: "@ohos-rs/ada",
-  description: "ada binding for OpenHarmony, powered by ohos-rs",
-  main: "index.ets",
-  version: "0.0.4",
-  types: "libs/index.d.ts",
-  dependencies: {},
-  keywords: ["ada-url", "harmony", "openharmony", "rust"],
-  repository: "https://github.com/harmony-contrib/ada-ohos.git",
-  homepage: "https://github.com/harmony-contrib/ada-ohos"
+  "license": "MIT",
+  "author": "richerfu",
+  "name": "@ohos-rs/ada",
+  "description": "ada binding for OpenHarmony, powered by ohos-rs",
+  "main": "index.ets",
+  "version": "0.0.4",
+  "types": "libs/index.d.ts",
+  "dependencies": {},
+  "keywords": ["ada-url", "harmony", "openharmony", "rust"],
+  "repository": "https://github.com/harmony-contrib/ada-ohos.git",
+  "homepage": "https://github.com/harmony-contrib/ada-ohos"
 }
