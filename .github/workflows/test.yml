@@ -34,5 +34,5 @@ jobs:
       - name: Build
         run: |
           cargo install cargo-zigbuild
-          cargo isstall ohrs
+          cargo install ohrs
           ohrs build --release --zigbuild
