@@ -28,7 +28,7 @@ jobs:
           version: '5.0.0'
 
       - name: Setup Zig for OpenHarmony
-        uses: openharmony-rs/setup-zig-ohos@v0.1
+        uses: openharmony-zig/setup-zig-ohos@v0.1
         id: setup-zig
         with:
           version: '0.16.0-dev.312+164c598cd'
